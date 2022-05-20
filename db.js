@@ -14,7 +14,7 @@ export default class DB {
             return true;
         } catch (e) {
             throw e
-			//new Error('Can not write in ' + filename)
+	    //new Error('Can not write in ' + filename)
         }
     }
 
@@ -28,7 +28,7 @@ export default class DB {
         }
     }
 	
-	static read() {
+    static read() {
         try {
             return JSON.parse(fs.readFileSync(filename, 'utf-8'))
         } catch (e) {
@@ -73,7 +73,7 @@ export default class DB {
             let records = DB.read()
             const index = DB.search(id)
 
-            if (!index)
+            if (index == -1)
                 throw new Error("Task not found.");
 
             records.splice(index, 1)
@@ -102,7 +102,7 @@ export default class DB {
             for (let i = 0; i < records.length; i++)
                 if (records[i].id === id)
                     return i;
-            return false
+            return -1
 
         } catch (e) {
             throw e
@@ -157,7 +157,7 @@ export default class DB {
             const records = DB.read()
             const index = DB.search(id)
 
-            if (index === false)
+            if (index == -1)
                 throw new Error("Task not found.");
 
             records[index].title = title;
